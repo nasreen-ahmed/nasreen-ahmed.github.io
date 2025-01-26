@@ -16,3 +16,30 @@ The **Beta Distribution** is a family of continuous probability distribution def
 
 The *probability density function*(PDF) of the beta distribution, for $0 \leq x$
 
+$$
+\begin{align*}
+y = f(x)
+\end{align*}
+$$ {#eq-sample-equation}
+
+In @eq-sample-equation, we have ...
+
+::: {#thm-my-theorem}
+### Pythagoras
+
+This is theorem
+:::
+
+*Proof*.
+
+
+In @thm-my-theorem, we had seen that
+
+::: {#prp-my-proposition}
+
+### My prop
+
+:::
+
+*Proof.*
+

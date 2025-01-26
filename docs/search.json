@@ -4,14 +4,14 @@
     "href": "posts/beta-distribution/index.html",
     "title": "Beta Distribution",
     "section": "",
-    "text": "The Beta Distribution is a family of continuous probability distribution defined on the interval \\([0,1]\\) in terms of two positive parameters , denoted by \\(\\alpha\\) and \\(\\beta\\), that appear as exponents of the variable and its complement to 1,respectively, and control the shape of the distribution.\n\n\nThe probability density function(PDF) of the beta distribution, for \\(0 \\leq x\\)"
+    "text": "The Beta Distribution is a family of continuous probability distribution defined on the interval \\([0,1]\\) in terms of two positive parameters , denoted by \\(\\alpha\\) and \\(\\beta\\), that appear as exponents of the variable and its complement to 1,respectively, and control the shape of the distribution.\n\n\nThe probability density function(PDF) of the beta distribution, for \\(0 \\leq x\\)\n\\[\n\\begin{align*}\ny = f(x)\n\\end{align*}\n\\tag{1}\\]\nIn Equation 1, we have …\n\nTheorem 1 (Pythagoras) This is theorem\n\nProof.\nIn Theorem 1, we had seen that\n\nProposition 1 (My prop)  \n\nProof."
   },
   {
     "objectID": "posts/beta-distribution/index.html#probability-density-function",
     "href": "posts/beta-distribution/index.html#probability-density-function",
     "title": "Beta Distribution",
     "section": "",
-    "text": "The probability density function(PDF) of the beta distribution, for \\(0 \\leq x\\)"
+    "text": "The probability density function(PDF) of the beta distribution, for \\(0 \\leq x\\)\n\\[\n\\begin{align*}\ny = f(x)\n\\end{align*}\n\\tag{1}\\]\nIn Equation 1, we have …\n\nTheorem 1 (Pythagoras) This is theorem\n\nProof.\nIn Theorem 1, we had seen that\n\nProposition 1 (My prop)  \n\nProof."
   },
   {
     "objectID": "about.html",
