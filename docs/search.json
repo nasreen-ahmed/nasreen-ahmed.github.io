@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "nasreen-ahmed.github.io",
     "section": "",
-    "text": "Hi there! Welcome to my blog. I’m Nasreen. I am a software engineer turned data-scientist.\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Hi there! Welcome to my blog. I’m Nasreen. I am a software engineer turned data-scientist.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBeta Distribution\n\n\n\n\n\n\nMachine Learning\n\n\n\n\n\n\n\n\n\nJan 26, 2025\n\n\nNasreen\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 26, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 23, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -26,5 +26,19 @@
     "title": "Post With Code",
     "section": "",
     "text": "This is a post with executable code."
+  },
+  {
+    "objectID": "posts/beta-distribution/index.html",
+    "href": "posts/beta-distribution/index.html",
+    "title": "Beta Distribution",
+    "section": "",
+    "text": "The Beta Distribution is a family of continuous probability distribution defined on the interval \\([0,1]\\) in terms of two positive parameters , denoted by \\(\\alpha\\) and \\(\\beta\\), that appear as exponents of the variable and its complement to 1,respectively, and control the shape of the distribution.\n\n\nThe probability density function(PDF) of the beta distribution, for \\(0 \\leq x\\)"
+  },
+  {
+    "objectID": "posts/beta-distribution/index.html#probability-density-function",
+    "href": "posts/beta-distribution/index.html#probability-density-function",
+    "title": "Beta Distribution",
+    "section": "",
+    "text": "The probability density function(PDF) of the beta distribution, for \\(0 \\leq x\\)"
   }
 ]

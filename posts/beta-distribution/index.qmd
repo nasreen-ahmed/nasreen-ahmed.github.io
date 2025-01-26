@@ -1,0 +1,18 @@
+---
+title: "Beta Distribution"
+author: "Nasreen"
+date: "2025-01-26"
+categories: [Machine Learning]      
+# image: "image.jpg"
+toc: true
+toc-depth: 3
+---
+
+# Introduction
+
+The **Beta Distribution** is a family of continuous probability distribution defined on the interval $[0,1]$ in terms of two positive parameters , denoted by $\alpha$ and $\beta$, that appear as exponents of the variable and its complement to 1,respectively, and control the shape of the distribution.
+
+## Probability Density Function 
+
+The *probability density function*(PDF) of the beta distribution, for $0 \leq x$
+
