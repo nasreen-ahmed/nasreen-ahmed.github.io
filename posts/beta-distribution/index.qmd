@@ -6,6 +6,9 @@ categories: [Machine Learning]
 # image: "image.jpg"
 toc: true
 toc-depth: 3
+jupyter: python3
+execute: 
+  enabled: true
 ---
 
 # Introduction
@@ -14,15 +17,19 @@ The **Beta Distribution** is a family of continuous probability distribution def
 
 ## Probability Density Function 
 
-The *probability density function*(PDF) of the beta distribution, for $0 \leq x$
+The *probability density function*(PDF) of the beta distribution, for $0 \leq x$ or $ 0 <x <1$, and shape parameters $\alpha ,\beta >0$, is a power function of the variable $x$ and of its reflection $(1-x)$ as follows :
 
 $$
 \begin{align*}
-y = f(x)
+f(x;\alpha,\beta) &= \text{constant } \cdot x^{\alpha-1} (1-x)^{\beta-1}\\
+&= \frac{x^{\alpha-1}(1-x)^{\beta -1}}{\int_0^1 u^{\alpha-1}(1-u)^{\beta-1}du} \\
+&=\frac{\gamma(\alpha+\beta)}{\gamma(\alpha)\gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}\\
+&= \frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}
 \end{align*}
-$$ {#eq-sample-equation}
+$$ {#eq-pdf_beta}
 
-In @eq-sample-equation, we have ...
+where $\gamma(z)$, is the gamma function. The beta function,$B$, is a normalizing constant to ensure that the total probability is $1$. In the above equation, $x$ is a realization - an observed value that actually occured - of a random variable. 
+
 
 ::: {#thm-my-theorem}
 ### Pythagoras
@@ -42,4 +49,10 @@ In @thm-my-theorem, we had seen that
 :::
 
 *Proof.*
+
+```{python}
+import numpy as np
+
+print("Hello")
+```
 

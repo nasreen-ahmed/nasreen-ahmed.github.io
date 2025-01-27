@@ -1,0 +1,202 @@
+---
+title: "3D plotting in matplotlib"
+author: "Nasreen"
+date: "2025-01-26"
+categories: [Coding]      
+# image: "image.jpg"
+toc: true
+toc-depth: 3
+jupyter: python3
+execute: 
+  enabled: true
+---
+
+source : https://www.youtube.com/watch?v=fAztJg9oi7s
+
+```{python}
+import numpy as np 
+import matplotlib.pyplot as plt 
+from mpl_toolkits import mplot3d
+
+#Single Points
+
+ax = plt.axes(projection ="3d")
+ax.scatter(3,5,10)
+plt.show()
+```
+
+```{python}
+import numpy as np 
+import matplotlib.pyplot as plt 
+from mpl_toolkits import mplot3d
+
+#scatter plots 
+
+ax = plt.axes(projection ="3d")
+x_data = np.random.randint(0,100,(500,))
+y_data = np.random.randint(0,100,(500,))
+z_data = np.random.randint(0,100,(500,))
+
+ax.scatter(x_data,y_data,z_data)
+plt.show()
+```
+
+```{python}
+import numpy as np 
+import matplotlib.pyplot as plt 
+from mpl_toolkits import mplot3d
+
+#scatter plots 
+
+ax = plt.axes(projection ="3d")
+x_data = np.arange(0,50,0.1)
+y_data =  np.arange(0,50,0.1)
+z_data =  x_data * y_data 
+
+ax.plot(x_data,y_data,z_data)
+plt.show()
+```
+
+
+
+```{python}
+import numpy as np 
+import matplotlib.pyplot as plt 
+from mpl_toolkits import mplot3d
+
+#scatter plots 
+
+x_data = np.arange(-5,5,0.1)
+#z_data =  np.sin(x_data) * np.cos(y_data) 
+print("sin",np.sin(x_data[0:10]),"\n")
+x_axis = range(len(x_data))
+sin_x = np.sin(x_data)
+cos_x = np.cos(x_data)
+plt.plot(x_axis,x_data)
+plt.plot(x_axis,sin_x,label='sin x')
+plt.plot(x_axis,cos_x,label='scos x')
+plt.legend()
+plt.show()
+```
+
+
+```{python}
+import numpy as np 
+import matplotlib.pyplot as plt 
+from mpl_toolkits import mplot3d
+
+#scatter plots 
+
+ax = plt.axes(projection ="3d")
+x_data = np.arange(0,50,0.1)
+y_data =  np.arange(0,50,0.1)
+z_data =  np.sin(x_data) * np.cos(y_data) 
+
+ax.plot(x_data,y_data,z_data)
+ax.set_title("Funny Function")
+ax.set_xlabel("My x values (cm)")
+ax.set_ylabel("My y values (cm)")
+ax.set_zlabel("My fancy results")
+plt.show()
+```
+
+## Surface Plots 
+
+```{python}
+import numpy as np 
+import matplotlib.pyplot as plt 
+from mpl_toolkits import mplot3d
+
+#scatter plots 
+
+ax = plt.axes(projection ="3d")
+x_data = np.arange(0,50,0.1)
+y_data =  np.arange(0,50,0.1)
+
+X, Y = np.meshgrid(x_data,y_data) 
+Z = X * Y
+ax.plot_surface(X,Y,Z)
+plt.show()
+```
+
+```{python}
+import numpy as np 
+import matplotlib.pyplot as plt 
+from mpl_toolkits import mplot3d
+
+#scatter plots 
+
+ax = plt.axes(projection ="3d")
+x_data = np.arange(-5,5,0.1)
+y_data =  np.arange(-5,5,0.1)
+
+X, Y = np.meshgrid(x_data,y_data) 
+Z = np.sin(X) * np.cos(Y)
+ax.plot_surface(X,Y,Z,cmap='plasma')
+plt.show()
+```
+
+
+Beta Distribution 
+
+Beta distribution pdf function 
+
+$$
+\begin{align*}
+f(x;\alpha,\beta) &= \text{constant } \cdot x^{\alpha-1} (1-x)^{\beta-1}\\
+&= \frac{x^{\alpha-1}(1-x)^{\beta -1}}{\int_0^1 u^{\alpha-1}(1-u)^{\beta-1}du} \\
+&=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1}(1-x)^{\beta-1}\\
+&= \frac{1}{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}
+\end{align*}
+$$ {#eq-pdf_beta}
+
+$\Gamma(n)=(n-1)!$
+
+
+
+```{python}
+import math 
+
+x = np.arange(0,1,0.05)
+#alpha = np.arange(0.5,9,2)
+#beta =  np.arange(0.5,8,2)
+
+alpha = 4
+beta = 2
+
+beta_op = []
+for i in range(0,len(x)):
+
+    val = (math.factorial(alpha-1)*math.factorial(beta-1))/(math.factorial(alpha+beta-1)) * x[i]**(alpha-1)* (1-x[i])**(beta-1)
+    beta_op.append(val)
+
+alpha = 2
+beta = 4
+
+beta_op_2 = []
+for i in range(0,len(x)):
+
+    val = (math.factorial(alpha-1)*math.factorial(beta-1))/(math.factorial(alpha+beta-1)) * x[i]**(alpha-1)* (1-x[i])**(beta-1)
+    beta_op_2.append(val)
+
+alpha = 5
+beta = 5
+
+beta_op_3 = []
+for i in range(0,len(x)):
+
+    val = (math.factorial(alpha-1)*math.factorial(beta-1))/(math.factorial(alpha+beta-1)) * x[i]**(alpha-1)* (1-x[i])**(beta-1)
+    beta_op_3.append(val)
+
+print("max value of the PDF when alpha = 4 and beta = 2",max(beta_op))
+print("max value of the PDF when alpha = 2 and beta = 4",max(beta_op_2))
+print("max value of the PDF when alpha = 4 and beta = 2",max(beta_op_3))
+plt.plot(x,beta_op,label ="alpha=4,beta=2")
+plt.plot(x,beta_op_2,label ="alpha=2,beta=4")
+plt.plot(x,beta_op_3,label ="alpha=5,beta=5")
+plt.legend()
+plt.show()
+
+```
+
+

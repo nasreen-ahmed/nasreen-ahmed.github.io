@@ -1,0 +1,12 @@
+{
+  "hash": "e16f24cd2782624458f4d6e48c6c3a9e",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Beta Distribution\"\nauthor: \"Nasreen\"\ndate: \"2025-01-26\"\ncategories: [Machine Learning]      \n# image: \"image.jpg\"\ntoc: true\ntoc-depth: 3\njupyter: python3\nexecute: \n  enabled: true\n---\n\n\n# Introduction\n\nThe **Beta Distribution** is a family of continuous probability distribution defined on the interval $[0,1]$ in terms of two positive parameters , denoted by $\\alpha$ and $\\beta$, that appear as exponents of the variable and its complement to 1,respectively, and control the shape of the distribution.\n\n## Probability Density Function \n\nThe *probability density function*(PDF) of the beta distribution, for $0 \\leq x$ or $ 0 <x <1$, and shape parameters $\\alpha ,\\beta >0$, is a power function of the variable $x$ and of its reflection $(1-x)$ as follows :\n\n$$\n\\begin{align*}\nf(x;\\alpha,\\beta) &= \\text{constant } \\cdot x^{\\alpha-1} (1-x)^{\\beta-1}\\\\\n&= \\frac{x^{\\alpha-1}(1-x)^{\\beta -1}}{\\int_0^1 u^{\\alpha-1}(1-u)^{\\beta-1}du} \\\\\n&=\\frac{\\gamma(\\alpha+\\beta)}{\\gamma(\\alpha)\\gamma(\\beta)} x^{\\alpha-1}(1-x)^{\\beta-1}\\\\\n&= \\frac{1}{B(\\alpha,\\beta)}x^{\\alpha-1}(1-x)^{\\beta-1}\n\\end{align*}\n$$ {#eq-pdf_beta}\n\nwhere $\\gamma(z)$, is the gamma function. The beta function,$B$, is a normalizing constant to ensure that the total probability is $1$. In the above equation, $x$ is a realization - an observed value that actually occured - of a random variable. \n\n\n::: {#thm-my-theorem}\n### Pythagoras\n\nThis is theorem\n:::\n\n*Proof*.\n\n\nIn @thm-my-theorem, we had seen that\n\n::: {#prp-my-proposition}\n\n### My prop\n\n:::\n\n*Proof.*\n\n::: {#9af61cd1 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\n\nprint(\"Hello\")\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nHello\n```\n:::\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
