@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/MLE-covariance/index.html",
       "/posts/beta-distribution/index.html",
       "/posts/python-plotting/index.html"
     ]

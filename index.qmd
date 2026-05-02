@@ -1,5 +1,5 @@
 ---
-title: "nasreen-ahmed.github.io"
+title: "ML Quant Blog"
 listing:
   contents: posts
   sort: "date desc"
