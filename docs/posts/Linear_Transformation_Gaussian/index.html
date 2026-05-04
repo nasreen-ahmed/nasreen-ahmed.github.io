@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Maximum Likelihood estimate for the covariance has an expectation that is less than the true value. – nasreen-ahmed.github.io</title>
+<title>Linear Transformation of a Gaussian Distribution – nasreen-ahmed.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,7 +150,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title"><span style="color: RoyalBlue"><strong>Maximum Likelihood estimate</strong> for the covariance has an expectation that is less than the true value.</span></h1>
+      <h1 class="title">Linear Transformation of a Gaussian Distribution</h1>
                       </div>
   </div>
     
@@ -174,233 +174,57 @@ window.Quarto = {
 
 
 
-<section id="the-setup" class="level2">
-<h2 class="anchored" data-anchor-id="the-setup"><span style="color: RoyalBlue"><strong>1. The Setup</strong></span></h2>
-<p>We have <span class="math inline">\(n\)</span> observations <span class="math inline">\(x_1,x_2,\ldots,x_n\)</span> drawn from a Gaussian with unknown mean <span class="math inline">\(\mu\)</span> and unknown covariance <span class="math inline">\(Σ\)</span>. We want to estimate <span class="math inline">\(Σ\)</span>.</p>
-<p>There are two candidates</p>
-<p><span style="color: RoyalBlue"><strong>MLE Covariance</strong></span></p>
-<p><span class="math display">\[\begin{align}
-\hat{∑}_{MLE} = \frac{1}{n} \sum_{i=1}^n(x_i-\bar{\mu})(x_i -\bar{\mu})
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>Sample Covariance</strong></span></p>
-<p><span class="math display">\[\begin{align}
-S=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(x_i-\bar{x})
-\end{align}\]</span></p>
-</section>
-<section id="the-core-problem---we-do-not-know-the-true-mean" class="level2">
-<h2 class="anchored" data-anchor-id="the-core-problem---we-do-not-know-the-true-mean"><span style="color: RoyalBlue">2. The Core Problem - We do not know the True Mean</span></h2>
-<p>If we actually knew the true mean <span class="math inline">\(\mu^*\)</span> , the unbiased estimator would simple be</p>
-<p><span class="math display">\[\begin{align}
-\hat{∑}_{MLE} = \frac{1}{n} \sum_{i=1}^n(x_i-\mu^*)(x_i -\mu^*)
-\end{align}\]</span></p>
-<p>and divided by <span class="math inline">\(n\)</span> would be exactly right. But we do not know <span class="math inline">\(\mu^*\)</span>. We estimate it from the same data as <span class="math inline">\(\bar{x} = \frac{1}{n}\sum x_i\)</span>. This is the root of the problem . Using <span class="math inline">\(\bar{x}\)</span> instead of <span class="math inline">\(\mu^*\)</span> <strong>artificially shrinks</strong> the deviations <span class="math inline">\((x_i-\bar{x})\)</span></p>
-</section>
-<section id="why-overlinex-shrinks-the-deviations" class="level2">
-<h2 class="anchored" data-anchor-id="why-overlinex-shrinks-the-deviations"><span style="color: RoyalBlue">3. Why <span class="math inline">\(\overline{x}\)</span> Shrinks the Deviations</span></h2>
-<p>The sample mean <span class="math inline">\(\bar{x}\)</span> is not an independent quantity - it is computed from the same <span class="math inline">\(n\)</span> points we are using to estimate covariance. It is the point that <strong>minimizies</strong> the sum of squared deviations by definition:</p>
-<p><span class="math display">\[\begin{align}
-\bar{x} = \text{argmin}_m \sum_{i=1}^n ||x_i-m||^2
-\end{align}\]</span></p>
-<p>So the deviations <span class="math inline">\((x_i-\bar{x})\)</span> are always as least as small as the deviations <span class="math inline">\((x_i-\mu^*)\)</span> fromth true mean. In other words:</p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n ||x_i - \bar{x}||^2 \leq\sum_{i=1}^n ||x_i - \mu^*||^2
-\end{align}\]</span></p>
-<p>with equality only when <span class="math inline">\(\bar{x}=\mu^*\)</span> exactly. The MLE plugs these artificially small deviations into the formula and divides by <span class="math inline">\(n\)</span>, giving a result that is <strong>systematically</strong> too small.</p>
-<section id="understanding-why" class="level3">
-<h3 class="anchored" data-anchor-id="understanding-why"><span style="color: RoyalBlue"><strong>Understanding why</strong></span></h3>
-<p><span class="math display">\[\begin{align}
-&amp;\sum_{i=1}^n ||x_i - \bar{x}||^2 \leq \sum_{i=1}^n ||x_i - \mu^*||^2
-\end{align}\]</span></p>
-<p>where <span class="math inline">\(\bar{x}\)</span> : Sample Mean $$ : Population Mean</p>
-<p><span style="color: RoyalBlue"><strong>The Core Idea in One Sentence</strong></span></p>
-<p><span class="math inline">\(\overline{x}\)</span> is <strong>chosen to be as close as possible to the data points</strong> - so measuring distance from <span class="math inline">\(\overline{x}\)</span> always gives smaller gaps than measuring from the true mean <span class="math inline">\(\mu^*\)</span>m, which sits whereever nature put it, not where our data happens to be.</p>
-<p><span style="color: RoyalBlue"><strong>Start With a Simple 1D Example</strong></span></p>
-<p>Suppose the true mean is <span class="math inline">\(\mu^* = 10\)</span>, but we draw 3 points</p>
-<p><span class="math display">\[\begin{align}
-x_1 = 8 , x_2 = 11, x_3 = 12
-\end{align}\]</span></p>
-<p>The sample mean is <span class="math inline">\(\overline{x} = \frac{8+10+12}{3} = 10.33\)</span></p>
-<p>Now compute the deviations from each:</p>
+<p><span style="color:RoyalBlue">Theorem : A Linear Transformation of a Gaussian is also a Gaussian</span></p>
+<p><strong>Proof</strong>:</p>
+<p>Let <span class="math inline">\(\epsilon \sim \mathcal{N}(\mu,\sigma^2)\)</span>, so the PDF is</p>
 <p><span class="math display">\[
-\begin{array}{l|c|c}
-\text{Point} &amp; \text{From } \mu^* &amp; \text{From } \bar{x} = 10.33 \\
-\hline
-x_1 = 8 &amp; -2 &amp; -2.33 \\
-x_2 = 11 &amp; +1 &amp; +0.67 \\
-x_3 = 12 &amp; +2 &amp; +1.67 \\
-\hline
-\text{Sum of Squares} &amp; 4+1+4=9 &amp; 5.43+0.45+2.79=8.67
-\end{array}
+p(\epsilon) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp (-\frac{(\epsilon-\mu)^2}{2\sigma^2})
 \]</span></p>
-<p><span style="color: RoyalBlue">The sum of squared deviationsfrom <span class="math inline">\(\overline{x}\)</span> is smaller than from <span class="math inline">\(\mu^*\)</span>. The MLE uses <span class="math inline">\(7.67\)</span>, but the trueth needs <span class="math inline">\(9\)</span>. This is exactly the shrinkage</span></p>
-<p><span style="color: RoyalBlue"><strong>Why Geometrically</strong></span></p>
-<p><span class="math inline">\(\bar{x}\)</span> wins this competition by design. It is defined as</p>
-<p><span class="math display">\[\begin{align}
-\bar{x} = \text{argmin}_m \sum_{i=1}^n ||x_i - m||^2
-\end{align}\]</span></p>
-<p>This is an optimization problem . <span class="math inline">\(\bar{x}\)</span> is literally the point that <strong>minimizes total squared distance</strong> to all our data points. It is the centre of mass of our observed data - the best possible anchor point for our specific sample.</p>
-<p><span class="math inline">\(\mu^*\)</span> on the other hand is a fixed population quantity. It has no reason to be close to our particular sample. It could sit anywhere relative to our data set.</p>
-<p><span style="color: RoyalBlue"><strong>Why is the Inequality Always True ?</strong></span></p>
-<p>This follows from a fundamental property of least squares. For <strong>any</strong> fixed point <span class="math inline">\(m\)</span>, we can write.</p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n ||x_i - m||^2 = \sum_{i=1}^n ||x_i-\bar{x}||^2 + n||\bar{x}-m||^2
-\end{align}\]</span></p>
-<p>This is the <span style="color: RoyalBlue"><strong>variance decomposition identity</strong></span> - total spread around <span class="math inline">\(m\)</span> equals spread around <span class="math inline">\(\bar{x}\)</span>, plus the squared distance from <span class="math inline">\(\bar{x}\)</span> to <span class="math inline">\(m\)</span>, scaled by <span class="math inline">\(n\)</span>.</p>
-<p>Setting <span class="math inline">\(m = \mu^*\)</span></p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n ||x_i - \mu^*||^2 =\underbrace{\sum_{i=1}^n ||x_i-\bar{x}||^2}_{\text{ What MLE uses}} + \underbrace{n||\bar{x}-\mu^*||^2}_{\text{extra term}\geq 0}
-\end{align}\]</span></p>
-<p>The extra term <span class="math inline">\(n||x-\mu^*||^2\)</span> is always non-negative, so the left side is always atleast as large as the first term on the right. Rearranging:</p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n ||x_i - \mu^*||^2 \leq \sum_{i=1}^n ||x_i-\bar{x}||^2
-\end{align}\]</span></p>
-<p>THE MLE discards the extra terms <span class="math inline">\(n||\bar{x}-\mu^*||^2\)</span> - it has no way to include it because <span class="math inline">\(\mu^*\)</span> is unknown.</p>
-<p><span style="color: RoyalBlue"><strong>What is That Extra Term ?</strong></span></p>
-<p><span class="math display">\[\begin{align}
-n||\bar{x}-\mu^*||^2
-\end{align}\]</span></p>
-<p>This is <span class="math inline">\(n\)</span> times the squared distance between our sample mean and the True mean. Taking its expectation.</p>
-<p><span class="math display">\[\begin{align}
-\mathbf{E}[n||\bar{x}-\mu^*||^2] = n. Var(\bar{x}) = n \cdot \frac{σ^2}{n} = σ^2
-\end{align}\]</span></p>
-<p>So on average, the MLE is missing exactly <span class="math inline">\(σ^2\)</span> - one full unit of variancce. This is why dividing by <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> fixes things exactly.</p>
-<p><span style="color: RoyalBlue">The Analogy</span></p>
-<p>Think of it like measuring how spread out a group of people are in a room. We need a reference point to measure from.</p>
-<ul>
-<li><p><span class="math inline">\(\mu^*\)</span> is like a <strong>fixed pillar</strong> in the centre of the building = it does not move regardless of where people stand.</p></li>
-<li><p><span class="math inline">\(\bar{x}\)</span> is like a <strong>person who walks to the average position of the group</strong> - they always position themselves to minimise their total distance to everyone else.</p></li>
-</ul>
-</section>
-</section>
-<section id="degrees-of-freedom-argument" class="level2">
-<h2 class="anchored" data-anchor-id="degrees-of-freedom-argument"><span style="color: RoyalBlue"><strong>Degrees of Freedom Argument</strong></span></h2>
-<p>We have <span class="math inline">\(n\)</span> observations, giving us <span class="math inline">\(n\)</span> deviation vectors <span class="math inline">\((x_i-\bar{x})\)</span>. But these are <strong>not free</strong> - they are constrained by:</p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n(x_i -\bar{x}) = 0
-\end{align}\]</span></p>
-<p>This constraint means one deviation is always determined by the other <span class="math inline">\(n-1\)</span>. We have effectively used up <strong>one degree of freedom</strong> estimating <span class="math inline">\(\bar{x}\)</span> from the data.Only <span class="math inline">\(n-1\)</span> independent pieces of information remain to estimate the covariance.</p>
-</section>
-<section id="the-formal-proof-of-bias" class="level2">
-<h2 class="anchored" data-anchor-id="the-formal-proof-of-bias"><span style="color: RoyalBlue">4.The Formal Proof of Bias</span></h2>
-<p>Take expectation of the MLE estimator. The key decomposition is</p>
-<p><span class="math display">\[\begin{align}
-x_i -\bar{x} = (x_i - \mu^*)-(\bar{x}-\mu^*)
-\end{align}\]</span></p>
-<p>Substituting and expanding:</p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n(x_i -\bar{x})(x_i-\bar{x})^T=\sum_{i=1}^n (x_i-\mu^*)(x_i-\mu^*)-n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T
-\end{align}\]</span></p>
-<p>Taking expectations of both sides, and using the fact that <span class="math inline">\(Var(\bar{x})=\frac{\sum}{n}\)</span></p>
-<p><span class="math display">\[\begin{align}
-E\bigg[\sum_{i=1}^n (x_i-\bar{x})(x_i-\bar{x})^T\bigg] = nΣ -Σ = (n-1)Σ
-\end{align}\]</span></p>
-<p>So:</p>
-<p><span class="math display">\[\begin{align}
-E[\hat{\sum}_{MLE}]=\frac{1}{n}(n-1)\sum = \frac{n-1}{n}\sum
-\end{align}\]</span></p>
-<p>The MLE is always off by the factor <span class="math inline">\(\frac{n-1}{n}\)</span> - always less than the truth. Dividing by <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> corrects this exactly.</p>
-<section id="little-more-explanation-of-the-above-point" class="level3">
-<h3 class="anchored" data-anchor-id="little-more-explanation-of-the-above-point"><span style="color: RoyalBlue"><strong>Little more explanation of the above point</strong></span></h3>
-<p><span class="math display">\[\begin{align}
-x_i-\bar{x} = (x_i - \mu^*)-(\bar{x}-\mu^*)
-\end{align}\]</span></p>
-<p><span class="math display">\[\begin{align}
-(x_i-\bar{x})(x_i-\bar{x})^T =(x_i-\mu^*)(x_i-\mu^*)^T-(x_i-\mu^*)(\bar{x}-\mu^*)^T-(\bar{x}-\mu^*)(x_i-\mu^*)^T + (\bar{x}-\mu^*)(\bar{x}-\mu^*)^T
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>Sum over all <span class="math inline">\(n\)</span> Points</strong></span></p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n(x_i-\bar{x})(x_i-\bar{x})^T =\sum_{i=1}(x_i-\mu^*)(x_i-\mu^*)^T-\bigg(\sum_{i=1}(x_i-\mu^*)\bigg)(\bar{x}-\mu^*)^T-(\bar{x}-\mu^*)\bigg(\sum_{i=1}(x_i-\mu^*)^T\bigg) +n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>Focusing on the middle two terms</strong></span></p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}(x_i-\mu^*) = \sum_{i=1}^n x_i - n\mu^*=n\bar{x}-n\mu^*=n(\bar{x}-\mu^*)
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>So the second term becomes</strong></span></p>
-<p><span class="math display">\[\begin{align}
--\bigg(\sum_{i=1}^n (x_i-\mu^*)\bigg)(\bar{x}-\mu^*)=-n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>And the third term becomes</strong></span></p>
-<p><span class="math display">\[\begin{align}
--(\bar{x}-\mu^*)\bigg(\sum_{i=1}^n (x_i-\mu^*)\bigg)^T=-n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>Putting it all together</strong></span></p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n(x_i-\bar{x})(x_i-\bar{x})^T = \sum_{i=1}(x_i-\mu^*)(x_i-\mu^*)^T - \underbrace{n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T-n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T}_{-2n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T} + n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>Combining the last three terms.</strong></span></p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n(x_i-\bar{x})(x_i-\bar{x})^T = \sum_{i=1}(x_i-\mu^*)(x_i-\mu^*)^T -n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue"><strong>Take the Expectations of Each term</strong></span></p>
-<p>Now we apply <span class="math inline">\(\mathbb{E}[\cdot]\)</span> to both sides.</p>
-<p><span class="math display">\[\begin{align}
-\mathbb{E}\bigg[\sum_{i=1}^n (x_i-\mu^*)(x_i-\mu^*)^T\bigg]=\sum_{i=1}^n \mathbb{E}[(x_i-\mu^*)(x_i-\mu^*)^T]
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue">Each term in the sum is just the definition of <span class="math inline">\(\sum\)</span> - the covariance of a single observation</span></p>
-<p><span class="math display">\[\begin{align}
-\sum_{i=1}^n \mathbb{E}[(x_i-\mu^*)(x_i-\mu^*)^T] = Σ
-\end{align}\]</span></p>
-<p>Example : Let <span class="math inline">\(x_i \in \mathbb{R}^2\)</span> , with true mean <span class="math inline">\(\mu^* =\big(\frac{1}{2}\big)\)</span> and covariance</p>
-<p><span class="math display">\[\begin{align}
-Σ=\begin{pmatrix}
-4  &amp; 1\
-1 &amp; 3
-\end{pmatrix}
-\end{align}\]</span>x} \end{align}</p>
-<p>The deviation from the mean is the random vector:</p>
-<p><span class="math display">\[\begin{align}
-x_i-\mu^* = \begin{pmatrix}
-x_{i1}-1\
-x_{i2}-2
-\end{pmatrix}
-\end{align}\]</span>x} \end{align}</p>
-<p>The outer product is</p>
-<p><span class="math display">\[\begin{align}
-(x_i-\mu^*)(x_i-\mu^*)^T = \begin{pmatrix}
-(x_{i1}-1)^2 &amp; (x_{i1}-1)(x_{i2}-2))\
-(x_{i2}-2)(x_{i1}-1) &amp; (x_{i2}-2)^2 )
-\end{pmatrix}
-\end{align}\]</span>x} \end{align}</p>
-<p>So summing over <span class="math inline">\(n\)</span> points: = <span class="math inline">\(nΣ\)</span></p>
-<p><span style="color: RoyalBlue"><strong>Second term on right</strong> - expectation of the correction term:</span></p>
-<p><span class="math display">\[\begin{align}
-\mathbb{E}[n(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T]=n\cdot\mathbb{E}[(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T]
-\end{align}\]</span></p>
-<p><span style="color: RoyalBlue">The inner expectation is jus tthe covariance of <span class="math inline">\(\bar{x}\)</span> itself.</span></p>
-<p><span class="math display">\[\begin{align}
-\mathbb{E}[(\bar{x}-\mu^*)(\bar{x}-\mu^*)^T]= Var(\bar{x})
-\end{align}\]</span></p>
-<p>Since ${x}=$ and the <span class="math inline">\(x_i\)</span> are i.i.d with covariance <span class="math inline">\(Σ\)</span></p>
-<p><span class="math display">\[\begin{align}
-Var(\bar{x}) = \frac{1}{n^2}\cdot nΣ = \frac{Σ}{n}
-\end{align}\]</span></p>
-<p>So the second term becomes:</p>
-<p><span class="math display">\[\begin{align}
-n \cdot \frac{Σ}{n} = Σ
-\end{align}\]</span></p>
-<p><span data-styl="color: RoyalBlue">Combining</span></p>
-<p><span class="math display">\[\begin{align}
-\mathbb{E}\bigg[\sum_{i=1}^n(x_i-\bar{x})(x_i-\bar{x})^T\bigg] = nΣ-Σ=(n-1)Σ
-\end{align}\]</span></p>
-<p>Therefore, the expectation of the MLE estimator is:</p>
-<p><span class="math display">\[\begin{align}
-\mathbb{E}[\hat{\sum}_{MLE}]=\frac{1}{n} \mathbb{E}\bigg[\sum_{i=1}^n (x_i=\bar{x})(x_i-\bar{x})^T\bigg] = \frac{(n-1)}{n}Σ
-\end{align}\]</span></p>
-<p>The MLE is always off by the factor <span class="math inline">\(\frac{n-1}{n}\)</span> - always less than the truth. Dividing my <span class="math inline">\(n-1\)</span> instead of <span class="math inline">\(n\)</span> corrects this exactly.</p>
-</section>
-</section>
-<section id="why-does-mle-get-this-wrong" class="level2">
-<h2 class="anchored" data-anchor-id="why-does-mle-get-this-wrong"><span style="color: RoyalBlue"><strong>5.Why Does MLE Get This Wrong</strong></span></h2>
-<p>MLE is maximising the likelihood - it not trying to be unbiased. These are <strong>two different optimality criteria</strong>:</p>
-<ul>
-<li>MLE asks : what <span class="math inline">\(Θ\)</span> makes the observed data most probable.</li>
-<li>Unbaisedness asks: what estimator is correct on average across repeated experiments?</li>
-</ul>
-<p>MLE wins on the first criterion by construction. It loses on the second in finite samples because it treats <span class="math inline">\(\bar{x}\)</span> as if it were the true <span class="math inline">\(\mu^*\)</span>, absoring the estimation uncertainity into deviations and shrinking them.</p>
-<p>The bias vanishes as <span class="math inline">\(n→∞\)</span> so MLE is <strong>consistent</strong> - it converges to the truth. But in small samples the correction matters significantly, espicially in high dimensions where we may have many parameters to estimate and few observations to do it with.</p>
+<p>Define <span class="math inline">\(t = a+b\epsilon\)</span>, where <span class="math inline">\(a,b\)</span> are constants. We want to find <span class="math inline">\(p(t)\)</span></p>
+<p><strong>Step 1</strong> : Find <span class="math inline">\(\epsilon\)</span> in terms of <span class="math inline">\(t\)</span></p>
+<p><span class="math display">\[
+\epsilon = \frac{t-a}{b}
+\]</span></p>
+<p><strong>Step 2</strong> : Apply the change of variables formula</p>
+<p>For a transformation <span class="math inline">\(t=g(\epsilon)\)</span>, the PDf for <span class="math inline">\(t\)</span> is</p>
+<p><span class="math display">\[
+p(t) = p(\epsilon) \left|\frac{d\epsilon}{dt}\right|
+\]</span></p>
+<p>Compute the Jacobian</p>
+<p><span class="math display">\[
+\frac{d\epsilon}{dt} = \frac{1}{b}=&gt; \left|\frac{d\epsilon}{dt}\right| = \frac{1}{|b|}
+\]</span></p>
+<p><strong>Step 3</strong> Substitute</p>
+<p><span class="math display">\[
+p(t) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp (- \frac{(\frac{t-a}{b}-\mu)^2}{2\sigma^2})\cdot \frac{1}{|b|}
+\]</span></p>
+<p>Simplifying the exponent</p>
+<p><span class="math display">\[
+\frac{t-a}{b} - \mu = \frac{t-a-b\mu}{b}
+\]</span></p>
+<p>So, the squared terrm becomes</p>
+<p><span class="math display">\[
+(\frac{t-a-\mu}{b})^2 = \frac{(t-(a+b\mu)^2)}{b^2}
+\]</span></p>
+<p>Substituting back</p>
+<p><span class="math display">\[
+p(t) = \frac{1}{|b|\sqrt{2\pi \sigma^2}}\exp(- \frac{(t-(a+b\mu))^2}{2b^2\sigma^2})
+\]</span></p>
+<p>Rewrite <span class="math inline">\(|b|\sqrt{\sigma^2} = \sqrt{b^2\sigma^2}\)</span></p>
+<p><span class="math display">\[
+p(t) = \frac{1}{\sqrt{2\pi \sigma^2b^2}}\exp(- \frac{(t-(a+b\mu))^2}{2b^2\sigma^2})
+\]</span></p>
+<p><strong>Step 4</strong> : Recognizing the result</p>
+<p><span style="color:RoyalBlue">This is exactly the Gaussian PDF</span></p>
+<p><span class="math display">\[
+\text{mean} = a+b\mu , \text{ variance} = b^2\sigma^2
+\]</span></p>
+<p><span style="color:RoyalBlue"><strong>Therefore,</strong></span></p>
+<p><span class="math display">\[
+t = a+b\epsilon \sim \mathcal{N}(a+b\mu,b^2\sigma^2)
+\]</span></p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
