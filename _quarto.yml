@@ -4,6 +4,7 @@ project:
 
 website:
   title: "nasreen-ahmed.github.io"
+  site-url: "http://nasreen-ahmed.github.io"
   navbar:
     right:
       - about.qmd
@@ -17,18 +18,18 @@ format:
     code-tools: true
     code-block-border-left: true
     code-annotations: below
-    highlight-style: pygments
+    highlight-style: 
+      light: arrow
+      dark: github-dark
     theme: flatly
-    css: styles.css
     grid:
-      sidebar-width: 200px
       body-width: 1100px
       margin-width: 200px
       gutter-width: 1.5rem
     
     mainfont: "Open Sans"
     monofont: "Source Code Pro"
-    fontsize: 16px
+    fontsize: 1.4rem
     include-in-header:
       text: |
         <style>

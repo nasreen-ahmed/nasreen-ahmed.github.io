@@ -50,9 +50,4 @@ In @thm-my-theorem, we had seen that
 
 *Proof.*
 
-```{python}
-import numpy as np
-
-print("Hello")
-```
 

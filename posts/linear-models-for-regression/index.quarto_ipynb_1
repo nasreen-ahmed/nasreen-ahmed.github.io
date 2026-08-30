@@ -1,0 +1,140 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Predictive Distribution\"\n",
+        "author: \"Nasreen\"\n",
+        "date: \"2026-08-08\"\n",
+        "categories: [Probabilistic Machine Learning]\n",
+        "# image: \"image.jpg\"\n",
+        "toc: true\n",
+        "toc-depth: 3\n",
+        "jupyter: python3\n",
+        "execute: \n",
+        "  enabled: true\n",
+        "---\n",
+        "\n",
+        "In this post, we will discuss the predictive distribution in the context of Bayesian Linear regression. The goal of this post  to plot and understand the **predictive distribution** and how the predictive uncertainty decreases as we see more and more data points . \n",
+        "\n",
+        "The predictive distribution takes the form \n",
+        "\n",
+        "$$\n",
+        "\\begin{align*}\n",
+        "\\displaystyle p( t|x,t,\\alpha ,\\beta ) \\ =\\ \\mathcal{N}\\left( t|m_{N}^{T} \\ \\phi ( x) ,\\sigma _{N}^{2}( x)\\right)  \\tag{1}\n",
+        "\\end{align*}\n",
+        "$$\n",
+        "\n",
+        "where the variance $\\sigma_N^2(x)$ of the predictive distribution is given by \n",
+        "$$\n",
+        "\\begin{align*}\n",
+        "\\sigma_N^2(x) = \\frac{1}{\\beta} + \\phi(x)^T S_N \\phi(x) \\tag{2}\n",
+        "\\end{align*}\n",
+        "$$\n",
+        "\n",
+        "The first term in equation (2) represents the noise in the data whereas the second term reflects the uncertainity associated with the parameters $w$. \n",
+        "\n",
+        "In the limit $N \\rightarrow \\infty$, the second terms in equation (2) goes to zero, and the variance of the predictive distribution arises solely from the additive noise in the data governved by the parameter $\\beta$.\n",
+        "\n",
+        "We now take an example where the data is generated from a sinusoidal function with additive Gaussian noise and fit a model comprising of Gaussian basis functions to data sets of various sizes. \n",
+        "\n",
+        "Mathematical example \n",
+        "\n",
+        "- 3 Basis Functions \n",
+        "- 2 Data points \n",
+        "- $\\alpha = 2, \\beta = 25$\n",
+        "$m_N = \\beta S_N \\phi t_1$\n",
+        "$S_n^{-1} = \\alpha I + \\beta \\phi^T \\phi$\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "$$\n",
+        "\\begin{align*}\n",
+        "x_1 = 0.4 , t _1= 0.6  \\text{ and } x_2 = -0.2, t_2 = -0.9\n",
+        "\\end{align*}\n",
+        "$$\n",
+        "\n",
+        "$$\n",
+        "\\begin{align*}\n",
+        "\\mu_1 = -0.5 , \\mu_2 = 0 , \\mu_3 = 0.5 , s = 0.5\n",
+        "\\end{align*}\n",
+        "$$"
+      ],
+      "id": "84235557"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import numpy as np\n",
+        "x1 , t1 = 0.4, 0.6\n",
+        "x2, t2 = -0.2 , -0.9\n",
+        "mu1, mu2, mu3 = -0.5, 0, 0.5\n",
+        "alpha, beta  = 2, 25 \n",
+        "s = 0.5\n",
+        "def Gaussian_basis_function(x,mu,s):\n",
+        "  return np.exp( - 0.5 * (x-mu)**2 /s**2)\n",
+        "\n",
+        "def phi_calc(x,mus,s):\n",
+        "  return [Gaussian_basis_function(x,mu,s) for mu in mus]\n",
+        "\n",
+        "mus = [mu1,mu2,mu3]\n",
+        "\n",
+        "phi_1 = phi_calc(x1, mus,s)\n",
+        "phi_2 = phi_calc(x2, mus,s)\n",
+        "\n",
+        "phi = np.array([phi_1,phi_2]).reshape(2,3)"
+      ],
+      "id": "3a47ad62",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Calculating $S_N$ and $m_N$"
+      ],
+      "id": "84c014fb"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "S = np.linalg.inv(alpha * np.eye(3) + beta * np.dot(phi.T, phi))\n",
+        "print(S)"
+      ],
+      "id": "8df9f5e5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Posterior Mean \n",
+        "\n",
+        "$$\n",
+        "\\begin{align*}\n",
+        "&m_N = \\beta S_N \\phi^T t\\\\\n",
+        "&\\phi^T t = t_1 \\phi(x_1) + t_2 \\phi(x_2)\n",
+        "\\end{align*}\n",
+        "$$"
+      ],
+      "id": "cec51167"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/home/nasreen/repo/nasreen-ahmed.github.io/.venv/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

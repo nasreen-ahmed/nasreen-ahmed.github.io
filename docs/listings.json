@@ -2,10 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/Bayesian_Gaussian_Inference/index.html",
-      "/posts/gaussian-distribution/index.html",
-      "/posts/Linear_Transformation_Gaussian/index.html",
-      "/posts/MLE-covariance/index.html",
+      "/posts/option-basics/index.html",
+      "/posts/linear-models-for-regression/index.html",
       "/posts/beta-distribution/index.html",
       "/posts/python-plotting/index.html"
     ]
