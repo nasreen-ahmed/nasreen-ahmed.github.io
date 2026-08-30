@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Elementary-Strategies/index.html",
       "/posts/option-basics/index.html",
       "/posts/linear-models-for-regression/index.html",
       "/posts/beta-distribution/index.html",

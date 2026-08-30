@@ -100,11 +100,44 @@ When a trader makes an opening trade on an exchange, the exchange may require th
 In theory, margin deposits at the clearing house still belongs to the individual trader , and as such, any interest or dividends accuring to the margin deposit also belongs to the trader. 
 
 
+## Settlement Procedures
+
+Settlement procedures for an option and its underlying contract may differ. Two methods are commonly used to settle exchange-traded contracts - **stock-type settlement** and **futures-type-settlement**
+
+Suppose a trader buys 100 shares of a $50 stock. The value of the stock is $5000, and the buyer is required to pay the seller the full amount. If the stock rises to $60 per share, the owner of the stock will show a profile of $10 per share, or a total profit of $1000. 
+Even so, he won't be able to actually spend this $1000 profit until he formally liquidates the position by selling his 100 shares at $60 per share. This type of settlement procedure, where purchase requires full and immediate payment ,and where profits or losses are unrealized until the position is liquidated, is known as **stock-type** settlement.
+
+In contrast to stock-type settlement, **future-type settlement** requires no initial cash payment from the buyer to the seller. Moreover, all profits or losses are immediately realized, even if the position is not liquidated. 
+- If a trader buys a gold futures contract covering 100 ounces of gold for $450 per ounce, the full value of the contract is $45,000. The buyer, however is not required to pay the seller the full $45,000 value of the contract. 
+- The buyer does not have to pay any money at all. He is only required to deposit with the clearing house some amount of good-faith margin. 
+- At the end of each trading day both the buyer and the seller will immediately realize any profits or losses resulting from movement in the price of the gold futures contract. 
+- If the gold rises from $450 to $470 per ounce, $2000 $(\$20 \times \$1000)$ will be credited to the buyer's account, and he will have immediate use of these funds even if he does not liquidate the position. 
+- If the price of gold drops to $430 per ouce, he will realize an immediate loss of $2000. If he does not have sufficient funds in his account to cover this loss, the clearing house will issue a **Variation call**.
+
+### Distinction between margin call and variation call
+
+A margin call is issued by the clearing house to ensure that a trader can fulfill future financial obligations should the market move against him.
+Margin calls can be met with funds which, even though deposited at the clearing house, still belongs to the trader and consequently can earn interest for the trader .
+
+A variation call is issued in oder to fulfill the current financial obligations in the form of realized losses. 
+A variation call must be met with a cash payment which is immediately deducated from a trader's account. If a trader has deposited securities with the clearing house as margin, and receives a variation call, he must either deposit the additional variation amount in cash, or the clearing house will sell the securities in his account to generate enough cash to meet the variation call. 
+If the reamaining securities and cash in the account is not sufficient to meet the current margin requirements, the trader may be forced to liquidate his position.
+
+### Long and Short terminologies
+
+- In a long underlying position a trader will profilt if prices rise and lose if prices fall. 
+- In a short underlying position a trader will profit if prices fall and lose if prices rise. 
+- Any position which will profit from a rise in the price of the underlying contract as a long position and any position which will profit from a fall in price as a short position from an option market perspective. 
+- The terms long and short refer to the purchase or sale of a contract, and this is the sense in which we apply these terms to option trading. 
+
+**A trader who has purchased an option is long the option, and a trader who has sold the option is short.**
+
+- A long call position : A trader who is long a call also has a *long market position*.  Calls will in theory, rise in value if the underlying market rises. 
+-But a long put position is a *short market position* . A trader who has purchased a put wants the underling market to decline because a put will theoritically increase in value as the market declines. 
+
+# References
+- *Option Pricing and Volatility - Advanced Strategies And Trading Techniques - Sheldon Natenberg.* 
 
 
- Elementary Strategies 
- - Simple Buy and Sell Strategies
- - Risk / Reward Characteristics
- - Combination Strategies
- - Constructing an Expiration Graph 
+
 

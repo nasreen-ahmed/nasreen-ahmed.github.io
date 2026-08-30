@@ -119,6 +119,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 </style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -210,7 +239,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-and-assignment-of-options" id="toc-exercise-and-assignment-of-options" class="nav-link" data-scroll-target="#exercise-and-assignment-of-options">Exercise And Assignment of Options</a></li>
   <li><a href="#market-integrity" id="toc-market-integrity" class="nav-link" data-scroll-target="#market-integrity">Market Integrity</a></li>
   <li><a href="#margin-requirements" id="toc-margin-requirements" class="nav-link" data-scroll-target="#margin-requirements">Margin Requirements</a></li>
+  <li><a href="#settlement-procedures" id="toc-settlement-procedures" class="nav-link" data-scroll-target="#settlement-procedures">Settlement Procedures</a>
+  <ul class="collapse">
+  <li><a href="#distinction-between-margin-call-and-variation-call" id="toc-distinction-between-margin-call-and-variation-call" class="nav-link" data-scroll-target="#distinction-between-margin-call-and-variation-call">Distinction between margin call and variation call</a></li>
+  <li><a href="#long-and-short-terminologies" id="toc-long-and-short-terminologies" class="nav-link" data-scroll-target="#long-and-short-terminologies">Long and Short terminologies</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
   </ul>
 </nav>
     </div>
@@ -290,12 +325,41 @@ The two components must add up to the option’s total premium of $50.</p>
 <h2 class="anchored" data-anchor-id="margin-requirements">Margin Requirements</h2>
 <p>When a trader makes an opening trade on an exchange, the exchange may require the trader to deposit with the clearing house some amount of margin, or good faith capital. Such deposits ensure that if the market moves adversely , the trader will still be able to fulfill any future financial obligations resulting from the trade.</p>
 <p>In theory, margin deposits at the clearing house still belongs to the individual trader , and as such, any interest or dividends accuring to the margin deposit also belongs to the trader.</p>
-<p>Elementary Strategies - Simple Buy and Sell Strategies - Risk / Reward Characteristics - Combination Strategies - Constructing an Expiration Graph</p>
+</section>
+<section id="settlement-procedures" class="level2">
+<h2 class="anchored" data-anchor-id="settlement-procedures">Settlement Procedures</h2>
+<p>Settlement procedures for an option and its underlying contract may differ. Two methods are commonly used to settle exchange-traded contracts - <strong>stock-type settlement</strong> and <strong>futures-type-settlement</strong></p>
+<p>Suppose a trader buys 100 shares of a $50 stock. The value of the stock is $5000, and the buyer is required to pay the seller the full amount. If the stock rises to $60 per share, the owner of the stock will show a profile of $10 per share, or a total profit of $1000. Even so, he won’t be able to actually spend this $1000 profit until he formally liquidates the position by selling his 100 shares at $60 per share. This type of settlement procedure, where purchase requires full and immediate payment ,and where profits or losses are unrealized until the position is liquidated, is known as <strong>stock-type</strong> settlement.</p>
+<p>In contrast to stock-type settlement, <strong>future-type settlement</strong> requires no initial cash payment from the buyer to the seller. Moreover, all profits or losses are immediately realized, even if the position is not liquidated. - If a trader buys a gold futures contract covering 100 ounces of gold for $450 per ounce, the full value of the contract is $45,000. The buyer, however is not required to pay the seller the full $45,000 value of the contract. - The buyer does not have to pay any money at all. He is only required to deposit with the clearing house some amount of good-faith margin. - At the end of each trading day both the buyer and the seller will immediately realize any profits or losses resulting from movement in the price of the gold futures contract. - If the gold rises from $450 to $470 per ounce, $2000 <span class="math inline">\((\$20 \times \$1000)\)</span> will be credited to the buyer’s account, and he will have immediate use of these funds even if he does not liquidate the position. - If the price of gold drops to $430 per ouce, he will realize an immediate loss of $2000. If he does not have sufficient funds in his account to cover this loss, the clearing house will issue a <strong>Variation call</strong>.</p>
+<section id="distinction-between-margin-call-and-variation-call" class="level3">
+<h3 class="anchored" data-anchor-id="distinction-between-margin-call-and-variation-call">Distinction between margin call and variation call</h3>
+<p>A margin call is issued by the clearing house to ensure that a trader can fulfill future financial obligations should the market move against him. Margin calls can be met with funds which, even though deposited at the clearing house, still belongs to the trader and consequently can earn interest for the trader .</p>
+<p>A variation call is issued in oder to fulfill the current financial obligations in the form of realized losses. A variation call must be met with a cash payment which is immediately deducated from a trader’s account. If a trader has deposited securities with the clearing house as margin, and receives a variation call, he must either deposit the additional variation amount in cash, or the clearing house will sell the securities in his account to generate enough cash to meet the variation call. If the reamaining securities and cash in the account is not sufficient to meet the current margin requirements, the trader may be forced to liquidate his position.</p>
+</section>
+<section id="long-and-short-terminologies" class="level3">
+<h3 class="anchored" data-anchor-id="long-and-short-terminologies">Long and Short terminologies</h3>
+<ul>
+<li>In a long underlying position a trader will profilt if prices rise and lose if prices fall.</li>
+<li>In a short underlying position a trader will profit if prices fall and lose if prices rise.</li>
+<li>Any position which will profit from a rise in the price of the underlying contract as a long position and any position which will profit from a fall in price as a short position from an option market perspective.</li>
+<li>The terms long and short refer to the purchase or sale of a contract, and this is the sense in which we apply these terms to option trading.</li>
+</ul>
+<p><strong>A trader who has purchased an option is long the option, and a trader who has sold the option is short.</strong></p>
+<ul>
+<li>A long call position : A trader who is long a call also has a <em>long market position</em>. Calls will in theory, rise in value if the underlying market rises. -But a long put position is a <em>short market position</em> . A trader who has purchased a put wants the underling market to decline because a put will theoritically increase in value as the market declines.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="reference" class="level1">
+<h1>Reference</h1>
+<ul>
+<li><em>Option Pricing and Volatility - Advanced Strategies And Trading Techniques - Sheldon Natenberg.</em></li>
+</ul>
 
 
 <!-- -->
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -852,13 +916,46 @@ The two components must add up to the option’s total premium of $50.</p>
 <span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>In theory, margin deposits at the clearing house still belongs to the individual trader , and as such, any interest or dividends accuring to the margin deposit also belongs to the trader. </span>
 <span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Settlement Procedures</span></span>
 <span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a> Elementary Strategies </span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Simple Buy and Sell Strategies</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Risk / Reward Characteristics</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Combination Strategies</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Constructing an Expiration Graph </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>Settlement procedures for an option and its underlying contract may differ. Two methods are commonly used to settle exchange-traded contracts - **stock-type settlement** and **futures-type-settlement**</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>Suppose a trader buys 100 shares of a $50 stock. The value of the stock is $5000, and the buyer is required to pay the seller the full amount. If the stock rises to $60 per share, the owner of the stock will show a profile of $10 per share, or a total profit of $1000. </span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>Even so, he won't be able to actually spend this $1000 profit until he formally liquidates the position by selling his 100 shares at $60 per share. This type of settlement procedure, where purchase requires full and immediate payment ,and where profits or losses are unrealized until the position is liquidated, is known as **stock-type** settlement.</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>In contrast to stock-type settlement, **future-type settlement** requires no initial cash payment from the buyer to the seller. Moreover, all profits or losses are immediately realized, even if the position is not liquidated. </span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If a trader buys a gold futures contract covering 100 ounces of gold for $450 per ounce, the full value of the contract is $45,000. The buyer, however is not required to pay the seller the full $45,000 value of the contract. </span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The buyer does not have to pay any money at all. He is only required to deposit with the clearing house some amount of good-faith margin. </span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>At the end of each trading day both the buyer and the seller will immediately realize any profits or losses resulting from movement in the price of the gold futures contract. </span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If the gold rises from $450 to $470 per ounce, $2000 $(\$20 \times \$1000)$ will be credited to the buyer's account, and he will have immediate use of these funds even if he does not liquidate the position. </span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If the price of gold drops to $430 per ouce, he will realize an immediate loss of $2000. If he does not have sufficient funds in his account to cover this loss, the clearing house will issue a **Variation call**.</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### Distinction between margin call and variation call</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>A margin call is issued by the clearing house to ensure that a trader can fulfill future financial obligations should the market move against him.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>Margin calls can be met with funds which, even though deposited at the clearing house, still belongs to the trader and consequently can earn interest for the trader .</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>A variation call is issued in oder to fulfill the current financial obligations in the form of realized losses. </span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>A variation call must be met with a cash payment which is immediately deducated from a trader's account. If a trader has deposited securities with the clearing house as margin, and receives a variation call, he must either deposit the additional variation amount in cash, or the clearing house will sell the securities in his account to generate enough cash to meet the variation call. </span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>If the reamaining securities and cash in the account is not sufficient to meet the current margin requirements, the trader may be forced to liquidate his position.</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### Long and Short terminologies</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In a long underlying position a trader will profilt if prices rise and lose if prices fall. </span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In a short underlying position a trader will profit if prices fall and lose if prices rise. </span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Any position which will profit from a rise in the price of the underlying contract as a long position and any position which will profit from a fall in price as a short position from an option market perspective. </span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The terms long and short refer to the purchase or sale of a contract, and this is the sense in which we apply these terms to option trading. </span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>**A trader who has purchased an option is long the option, and a trader who has sold the option is short.**</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A long call position : A trader who is long a call also has a *long market position*.  Calls will in theory, rise in value if the underlying market rises. </span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>-But a long put position is a *short market position* . A trader who has purchased a put wants the underling market to decline because a put will theoritically increase in value as the market declines. </span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reference</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>*Option Pricing and Volatility - Advanced Strategies And Trading Techniques - Sheldon Natenberg.* </span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
