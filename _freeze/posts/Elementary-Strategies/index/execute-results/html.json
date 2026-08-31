@@ -1,0 +1,12 @@
+{
+  "hash": "0c491c2e7c32cc1d25cb367f446cceea",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Elementary Strategies\"\nauthor: \"Nasreen\"\ndate: \"2026-08-30\"\ncategories: [Options]\n# image: \"image.jpg\"\ntoc: true\ntoc-depth: 3\njupyter: python3\nexecute: \n  enabled: true\n---\n\nHow might a beginning trader assess an option's value? One simple method depends on guessing where the underlying contract will be at expiration. If an option position is held to expiration, the option will be worth either zero, if it is at- or out-of-the-money, or intrinsic value, if its in-the-money. \n\n**The purchase of an option will be profitable if its trade price is less than its value at expiration. The sale of an option will be profitable if its trade price is greater than its value at expiration**\n\n| Stock Price | S1 | S2 | S3 | S4 | S5 | S6 | S7 |\n|-------------|----|----|----|----|----|----|----|\n| Call        | 0  | 0  | 0  | 0  | 0  | 0  | 0  |\n| Put         | 0  | 0  | 0  | 0  | 0  | 0  | 0  |\n\n\n# References\n- *Option Pricing and Volatility - Advanced Strategies And Trading Techniques - Sheldon Natenberg.* \n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

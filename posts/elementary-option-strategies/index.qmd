@@ -1,0 +1,217 @@
+---
+title: "Elementary options strategies"
+author: "Nasreen"
+date: "2026-08-30"
+categories: [Options]
+# image: "image.jpg"
+toc: true
+toc-depth: 3
+jupyter: python3
+execute: 
+  enabled: true
+---
+
+How might a beginning trader assess an option's value? One simple method depends on guessing where the underlying contract will be at expiration. If an option position is held to expiration, the option will be worth either zero, if it is at- or out-of-the-money, or intrinsic value, if its in-the-money. 
+
+*The purchase of an option will be profitable if its trade price is less than its value at expiration. The sale of an option will be profitable if its trade price is greater than its value at expiration.*
+
+## Simple buy and sell strategies
+
+For example, suppose the following options are available with two months remaining to expiration, and the underlying contract trading at 99.00:
+
+| Stock Price |   85   |  90   |  95   |  100  |  105  |  110  |  115   |
+|-------------|------- |-------|-------|-------|-------|--------|-------|
+| Call        | 14.05  | 9.35  | 5.50  | 2.70  | 1.15  | 0.45   | 0.20  |
+| Put         | 0.10   | 0.45  | 1.55  | 3.70  | 7.10  | 11.35  | 16.10 |
+
+Suppose we believe that the underlying contract will rise to at least 108 by expiration. We might want to purchase a 100 call for 2.70. 
+If we are correct, and the contract does in fact end at 108, our profilt at expiration will be the option's intrinsic value of 8.00 less the 2.70 we originally paid , or 5.30 . 
+
+Given the above prices, if the underlying market rises to 108 by expiration we will show a profit if we purchase any call with an exercise price less than 110. **The intrinsic value of each of these options at expiration will be greater than its current price in the marketplace**.
+
+What about the 110 and 115 calls ? If one believes that 108.00 is a reasonable upside goal for the underlying contract, but consider it unlikely that the price will rise above 110, then it will be preferable to be sellters of the 110 and 115 calls. 
+
+If one sell the 110 call for 0.45 and the underlying contract never rises above 110.00, the 110 call will expire and the seller of the option will get to keep the full premium of 0.45. 
+One can also sell 115 call for 0.20 , giving an additional 5 point margin of error. If the underlying contract never rises about 115.00, the 115 call will expire worthless and the seller of the call option will get to keep the full premium of 0.20. 
+
+Using the same approach one can assess the potential profile from the purchase or sale of a put. As with a call, a put's intrinsic value at expiration must be greater than its trade price in order for the purchase of a put to be profitable. 
+
+If the underlying contract rises to 108.00 by expiration, any put with an exercise price of 105 or less will be worthless. If one sells any of these pu, they will profilt by the full amount of the premium. 
+If one sell the 110 or 115 puts, they will not be totally worthless at expiration because with the underlying contract at 108.00, they will have intrinsic values of 2.00 and 7.00 respectively. 
+However, it will still be less than their trade price of 11.35 and 16.10. 
+
+As one changes, the assumptions about the likely price of the underlying contract at expiration, that will alter the likely profit or loss from any option position. 
+
+
+If , instead of rising to 108.00 , the underlying contract actually rises to 120.00 , the purchase of the 100 call for 2.70 will result in a profit of 17.30 rather than 5.30. 
+On the other hand, if the underlying contract falls to 90.00, the purchase of the 100 call will result in the loss of the full premium 2.70. In the latter case, if we sell the 110 put for 11.35, instead of making 9.35 as we would with the underlying contract at 108.00,we will actually loss 8.65.
+
+Profit and Loss Graph of an underlying contract
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Long an underlying contract at 99 
+K = 99  # Original buy price
+S_t = np.linspace(85,115,50)  # Current price
+profit_loss_long = S_t - K
+
+# plotting the long on underlying contract at 99 
+
+plt.plot(S_t,profit_loss_long,label = 'Long an underlying contract at 99')
+
+# Short an underlying contract at 99 
+
+profit_loss_short =  K - S_t
+
+plt.plot(S_t,profit_loss_short,label ='Short an underlying contract at 99')
+
+plt.plot(S_t,np.linspace(0,0,50))
+
+plt.grid()
+plt.title("Expiration of Long and Short Position at 99")
+plt.legend(loc="upper center")
+plt.show()
+```
+
+The figure show the value at expiration of both a long and a short position in our example underlying contract taken at the current price of 99.00 
+- The horizontal(x) axis represents the price of the underlying futures contact, and the vertical (y) axis represents the profit or loss from our position. 
+- The potential profit or loss to each position is therefore unlimited. 
+- Also note that there is a continuous one-to-one relationship between movement in the underlying contract and the value of the position. If we take a long position , for each point the underlying contract rises, we make a point , for each point the underlying contract falls, we lose a point. 
+If we take a short position the situation is just reversed. For each point the underlying contract rises, we lose a point, for each point the underlying contract falls, we make a point. 
+
+Using the same evaluation method, the next figure show the profit or loss at expiration from the purchase of a 100 call at 2.70. The graph is no longer a straight line. 
+
+Above 100, the call will be **in-the-money**, and will increase in value at the same rate as the underling contract; the position will gain one point in value for each point rise in the value of the underlying contract. 
+
+If the underlying contract finishes at 102.70 the 100 call, will be worth its intrinsic value of 2.70, and break exactly even. 
+
+Above 102.70, the profile from the purchase of the 100 call is potentially unlimited, just take a long position in the underlying contract.
+
+
+
+```{python}
+# 
+K = 100  # Exercise Price
+S_t = np.linspace(85,110,50)  # Current price
+call_option_price = 2.70
+
+#
+#for i in S_t:
+#    if i < K :
+#        # Here the call option will not be #exercised
+#        value = - call_option_premium
+#    elif i >= K:
+#        # Here the call option will be #exercised 
+#        value = (i - K) - #call_option_premium
+#    
+#    profit_loss.append(value)
+
+profit_loss = [np.maximum([i - K], 0) - call_option_price for i in S_t]
+plt.plot(S_t,profit_loss,label = 'long a 100 call at 2.70')
+plt.plot(S_t,np.linspace(0,0,50),color='green')
+plt.title("Profit or Loss at expiration from the purchase of a 100 call at 2.70")
+plt.legend()
+plt.grid()
+
+```
+
+## Risk/Reward Characteristics
+
+The profit and loss graph of a long call position at expiration will always have the same general shape as the above graph. The position will have **limited downside risk and unlimited upside profit potential**. 
+ 
+ The exact point at which the maximum loss will occur is determined by the exercise price ( the point at which the graph bends) and the price of the option. 
+
+ Below is a graph of long positions in the 95, 100 and 105 calls 
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+K = [95,100,105]
+call_option_price = [ 5.50, 2.70,1.15]
+S_t = np.linspace(85,115,50)
+colors = ['blue', 'orange', 'purple'] 
+plt.plot(S_t, np.linspace(0, 0, 50), color='green')
+
+print("Hello")
+for (strike, premium, color) in zip(K, call_option_price,colors):
+    profit_loss = np.maximum(S_t - strike, 0) - premium
+    plt.plot(S_t, profit_loss, label=f'long a {strike} call at {premium}',color= color)
+
+plt.legend()
+plt.grid()
+plt.show()
+```
+
+The below graph represents the profit and loss from a short position in the 95, 100 and 105 calls. 
+The positions now have profit potential limited to the amount of the premium for which they were sold , and unlimited upside risk similar to a short position in the underlying contract. 
+
+```{python}
+K = [95,100,105]
+call_option_price = [ 5.50, 2.70,1.15]
+S_t = np.linspace (85,115,50)
+colors = ['blue', 'orange', 'purple'] 
+plt.plot(S_t, np.linspace(0, 0, 50), color='green')
+
+for strike, premium, color in zip(K, call_option_price,colors):
+    profit_loss =  premium - np.maximum(S_t  - strike,0) 
+    plt.plot(S_t, profit_loss, label=f'short a {strike} call at {premium}',color= color)
+
+plt.legend()
+plt.grid()
+plt.show()
+
+
+```
+
+The below figure represents long positions in the 95,100 and 105 put.  The risk/reward characteristics of these positions are similar to long call positions, but now the limited risk is on the upside and the unlimited profit potential is on the downside. 
+The position will break even if the underlying contract falls below the exercise price by exactly the amount of the option's trade price. 
+
+```{python}
+K = [95,100,105]
+call_option_price = [ 5.50, 2.70,1.15]
+S_t = np.linspace (85,115,50)
+colors = ['blue', 'orange', 'purple'] 
+plt.plot(S_t, np.linspace(0, 0, 50), color='green')
+
+for strike, premium, color in zip(K, call_option_price,colors):
+    profit_loss = np.maximum( strike - S_t, 0) - premium
+    plt.plot(S_t, profit_loss, label=f'long a {strike} put at {premium}',color= color)
+
+plt.legend()
+plt.grid()
+plt.show()
+
+
+```
+
+The below graph are the short put positions. Each position has upside profit potential limited to the amount of  the trade price , and a potential unlimited loss similar to a long position in the underlying contract. 
+
+```{python}
+K = [95,100,105]
+call_option_price = [ 5.50, 2.70,1.15]
+S_t = np.linspace (85,115,50)
+colors = ['blue', 'orange', 'purple'] 
+plt.plot(S_t, np.linspace(0, 0, 50), color='green')
+
+for strike, premium, color in zip(K, call_option_price,colors):
+    profit_loss = premium - np.maximum( strike - S_t, 0) 
+    plt.plot(S_t, profit_loss, label=f'short a {strike} put at {premium}',color= color)
+
+plt.legend()
+plt.grid()
+plt.show()
+
+```
+
+The immediate above 4 plots illustrates two of the most important characteristics of options : Buyers of options have limited risk and potentially unlimited reqard ; sellers of options have limited reward and potentially unlimited risk. 
+
+More specifically, **net buyers(sellers) of calls have unlimited upside reward (risk) , and net buyers(sellers) of puts have unlimited downward reward (risk)**.
+
+Option traders learn that the limited or unlimited risk/reward characteristics of a tradie 
+
+# References
+
+- *Option Pricing and Volatility - Advanced Strategies And Trading Techniques - Sheldon Natenberg.* 
