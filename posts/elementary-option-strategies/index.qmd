@@ -135,7 +135,7 @@ S_t = np.linspace(85,115,50)
 colors = ['blue', 'orange', 'purple'] 
 plt.plot(S_t, np.linspace(0, 0, 50), color='green')
 
-print("Hello")
+
 for (strike, premium, color) in zip(K, call_option_price,colors):
     profit_loss = np.maximum(S_t - strike, 0) - premium
     plt.plot(S_t, profit_loss, label=f'long a {strike} call at {premium}',color= color)
@@ -210,7 +210,100 @@ The immediate above 4 plots illustrates two of the most important characteristic
 
 More specifically, **net buyers(sellers) of calls have unlimited upside reward (risk) , and net buyers(sellers) of puts have unlimited downward reward (risk)**.
 
-Option traders learn that the limited or unlimited risk/reward characteristics of a tradie 
+Option traders learn that the limited or unlimited risk/reward characteristics of a trade are not the only considerations. Atleast as important is the probability of that unlimited profit or loss. As an example, suppose a trader is considering a trade which has only two possible outcomes. In one case the trader will double his money; in the other case he will go broke. In may seem that a rational trader will avoid such a trade because the reward does not appear to justify the risk. But suppose the probability of the second outcome is only one chance in a million. 
+In addition to the potential risk and reward associated with any trade, a trader must also consider the likelihood of the various outcomes.  
+
+## Combination Strategies
+
+Combine option positions to form new options. The below graph shows the profit and loss at expiration from the combined purchase of a 100 call for 2.70 and a 100 put for 3.70. 
+Here a total of 6.40 was paid, which will be the maximum loss if both option expire worthless. 
+This will happen is the underlying contract is right at 100 at expiration. If the underlying contract is above 100 at expiration the put will be worthless, but the call will act like a long underlying position, gaining one point in value for each point the underlying contract rises. If the underlying contract is below 100 the call will be worthless, but the put will act like a short underlying position, gaining one point in value for each point the underlying contract falls.
+
+In order for the position to do no worse than break even, it must be worth at least the 6.40 we originally paid. This will occur if either the 100 call or 100 put turns out to be worth 6.40. At expiration, the underlying contract must be at or above 106.40 or at or below 93.60. Outside this range, the potential profits is unlimited.
+
+```{python}
+K = 100  # Exercise Price
+S_t = np.linspace(85,115,50)  # Current price
+call_option_price = 2.70
+put_option_price = 3.70
+
+profit_loss = [np.maximum([i - K], 0) +np.maximum([K-i],0) - call_option_price - put_option_price for i in S_t]
+plt.plot(S_t,profit_loss,label = 'long a 100 call at 2.70 \n long a 100 put at 3.70')
+plt.plot(S_t,np.linspace(0,0,50),color='green')
+
+plt.legend()
+plt.grid()
+
+
+```
+
+Under what conditions might we initiate the position as shown above.? 
+
+Such a position might be sensible if one thought a large move in the underlying contract would take place in the near future, but were uncertain as to the direction of that move.
+
+One might also take the opposite view, that the underlying contract was unlikely to either fall below 93.60 or rise above 106.40. Under these conditions we might prefer to sell both the 100 call and 100 put , which our risk in either direction is unlimited. 
+
+```{python}
+K = 100  # Exercise Price
+S_t = np.linspace(85,115,50)  # Current price
+call_option_price = 2.70
+put_option_price = 3.70
+
+profit_loss = [ call_option_price + put_option_price - np.maximum([i - K], 0)  - np.maximum([K-i],0) for i in S_t]
+plt.plot(S_t,profit_loss,label = 'short a 100 call at 2.70 \nshort a 100 put at 3.70')
+plt.plot(S_t,np.linspace(0,0,50),color='green')
+
+plt.legend()
+plt.grid()
+```
+
+Suppose we take a view similar to the above figure, that the underlying contract is unlikely to make a big move in either direction. But because there is always a chance, one could go wrong, one might want to increase the margin of error by increasing our range of profitability beyong 93.60-106.40 range. 
+
+So, instead of selling a 100 call and a 100 put, one might sell a 95 put for 1.55 and a 105 call for 1.15. This position will realise a maximum profit of 2.70 within the range 95-105, where both options will expire worthless. The seller wont lose money unless the underling contract finishes below 92.30 or above 107.70 at expiration .
+
+```{python}
+call_strike = 105  # Exercise Price
+put_strike = 95
+S_t = np.linspace(85,115,50)  # Current price
+call_option_price = 1.15
+put_option_price = 1.15
+
+profit_loss = [ call_option_price + put_option_price - np.maximum([i - call_strike], 0)  - np.maximum([put_strike - i],0) for i in S_t]
+plt.plot(S_t,profit_loss,label = 'short a 95 put at 1.15 \nshort a 105 call at 1.15')
+plt.plot(S_t,np.linspace(0,0,50),color='green')
+
+plt.legend()
+plt.grid()
+```
+
+The maximum profit now is 3.70 and in the earlier case it was 6.40. In return for a reduced risk, one must be satisfied with a reduced profit potential. 
+
+The position in the immediate above 3 graphs all have either unlimited reward or unlimited risk because they are either net long or net short options. 
+
+Purchasing and selling equal number of options of the same type, one can create positions which have limited risk and unlimited reward. 
+
+For example, buy a 90 call for 9.35 and sell a 100 call for 2.70 for a total debit of 6.65. 
+
+```{python}
+long_call = 90  # Exercise Price
+short_call = 100
+S_t = np.linspace(85,115,50)  # Current price
+long_call_premium = 9.35
+short_call_premium = 2.70
+
+profit_loss = [ np.maximum([i - long_call], 0) - 
+    long_call_premium + short_call_premium - np.maximum([i - short_call], 0)  for i in S_t]
+plt.plot(S_t,profit_loss,label = 'long a 90 call at 9.35 \nshort a 100 call at 2.70')
+plt.plot(S_t,np.linspace(0,0,50),color='green')
+
+plt.legend()
+plt.grid()
+
+```
+
+## Constructing An Expiration Graph
+
+
 
 # References
 
