@@ -1,0 +1,25 @@
+---
+title: "Sparse Kernel Machines"
+author: "Nasreen"
+date: "2026-09-04"
+categories: [Machine Learning]
+# image: "image.jpg"
+toc: true
+toc-depth: 3
+jupyter: python3
+execute: 
+  enabled: true
+---
+
+## Discriminant Functions 
+
+A discriminant is a function that takes an input vector and assigns it to one of $K$ classes, denoted by $C_k$. 
+The discriminant function that we will study here is the linear discriminants for which the decision surfaces are hyperplanes. 
+
+### Two Classes 
+
+The simplest representation of a linear discriminant function is obtained by taking a linear function of the input vector 
+
+$$
+y(x) = w^T x+ w_0
+$$
